@@ -1,0 +1,325 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: 230 35% 7%;
+  --foreground: 210 40% 98%;
+  --card: 230 35% 7%;
+  --card-foreground: 210 40% 98%;
+  --popover: 230 35% 7%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 250 95% 76%;
+  --primary-foreground: 230 35% 7%;
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 250 95% 76%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 250 95% 76%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-blue-400;
+}
+
+.text-gradient-purple {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400;
+}
+
+.glow {
+  box-shadow: 0 0 20px 5px rgba(167, 139, 250, 0.3);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+.mouse-follower {
+  @apply fixed w-8 h-8 rounded-full pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 ease-out;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.3) 0%, rgba(167, 139, 250, 0.1) 70%);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
+
+.mouse-follower.grow {
+  @apply scale-[2.5];
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, rgba(167, 139, 250, 0.1) 70%);
+}
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #a78bfa, #8b5cf6, #7c3aed, #6d28d9);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.card-hover-effect {
+  @apply relative overflow-hidden rounded-xl border border-border/40 bg-card/30 backdrop-blur-sm transition-all duration-300;
+}
+
+.card-hover-effect:hover {
+  @apply border-primary/40 shadow-lg;
+  box-shadow: 0 0 20px 5px rgba(167, 139, 250, 0.15);
+  transform: translateY(-5px);
+}
+
+.card-hover-effect::before {
+  content: "";
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: radial-gradient(circle at 50% 0%, rgba(167, 139, 250, 0.1), transparent 70%);
+}
+
+.card-hover-effect:hover::before {
+  @apply opacity-100;
+}
+
+.tech-pill {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors;
+  background-color: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.tech-pill:hover {
+  background-color: rgba(167, 139, 250, 0.2);
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+.spotlight {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: radial-gradient(circle at var(--x) var(--y), rgba(167, 139, 250, 0.1) 0%, transparent 25%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-hover-effect:hover .spotlight {
+  opacity: 1;
+}
+
+.grid-pattern {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(167, 139, 250, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(167, 139, 250, 0.05) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+}
+
+.section-heading {
+  @apply text-3xl md:text-4xl font-bold mb-6 text-gradient glow-text;
+}
+
+.section-subheading {
+  @apply text-lg md:text-xl font-medium mb-8 text-muted-foreground max-w-2xl mx-auto;
+}
+
+.section-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+}
+
+.hover-card {
+  @apply relative overflow-hidden rounded-xl transition-all duration-500 cursor-pointer;
+}
+
+.hover-card-content {
+  @apply absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 transition-opacity duration-500;
+}
+
+.hover-card:hover .hover-card-content {
+  @apply opacity-100;
+}
+
+.hover-card-image {
+  @apply w-full h-full object-cover transition-transform duration-500;
+}
+
+.hover-card:hover .hover-card-image {
+  @apply scale-110;
+}
+
+.button-glow {
+  @apply relative overflow-hidden;
+}
+
+.button-glow::after {
+  content: "";
+  @apply absolute inset-0 rounded-md opacity-0 transition-opacity duration-300;
+  box-shadow: 0 0 15px 3px rgba(167, 139, 250, 0.6);
+}
+
+.button-glow:hover::after {
+  @apply opacity-100;
+}
+
+.skill-card {
+  @apply relative overflow-hidden rounded-xl border border-border/40 bg-card/30 backdrop-blur-sm p-6 transition-all duration-300;
+}
+
+.skill-card:hover {
+  @apply border-primary/40;
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px 5px rgba(167, 139, 250, 0.15);
+}
+
+.skill-card::before {
+  content: "";
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: radial-gradient(circle at 50% 0%, rgba(167, 139, 250, 0.1), transparent 70%);
+}
+
+.skill-card:hover::before {
+  @apply opacity-100;
+}
+
+.experience-card {
+  @apply relative overflow-hidden rounded-xl border border-border/40 bg-card/30 backdrop-blur-sm p-6 transition-all duration-300;
+}
+
+.experience-card:hover {
+  @apply border-primary/40;
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px 5px rgba(167, 139, 250, 0.15);
+}
+
+.experience-card::before {
+  content: "";
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: radial-gradient(circle at 50% 0%, rgba(167, 139, 250, 0.1), transparent 70%);
+}
+
+.experience-card:hover::before {
+  @apply opacity-100;
+}
+
+.testimonial-card {
+  @apply relative overflow-hidden rounded-xl border border-border/40 bg-card/30 backdrop-blur-sm p-6 transition-all duration-300;
+}
+
+.testimonial-card:hover {
+  @apply border-primary/40;
+  box-shadow: 0 0 20px 5px rgba(167, 139, 250, 0.15);
+}
+
+.testimonial-card::before {
+  content: "";
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: radial-gradient(circle at 50% 0%, rgba(167, 139, 250, 0.1), transparent 70%);
+}
+
+.testimonial-card:hover::before {
+  @apply opacity-100;
+}
+
+.project-card-container {
+  perspective: 1500px;
+  transform-style: preserve-3d;
+}
+
+.project-card {
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.project-card:hover {
+  transform: translateY(-5px) rotateX(-2deg) rotateY(2deg);
+}
+
+.project-card-image {
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-card-image {
+  transform: scale(1.05);
+}
+
+.tech-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.tech-icon:hover {
+  transform: translateY(-3px);
+}
+
+.tech-icon img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.check-it-out {
+  display: flex;
+  align-items: center;
+  color: hsl(var(--primary));
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.check-it-out:hover {
+  color: hsl(var(--primary) / 0.8);
+}
+
+.check-it-out svg {
+  transform: rotate(-45deg);
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+}
+
+.check-it-out:hover svg {
+  transform: rotate(-45deg) translate(2px, -2px);
+}
